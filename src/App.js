@@ -9,7 +9,7 @@ import StackOverflow from "./StackOverflow"
 function App() {
     return (
       <div>
-        <Particles />
+        <StackOverflow />
       </div>
     );
   }

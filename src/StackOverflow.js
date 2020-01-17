@@ -5,22 +5,26 @@ import React, { Component } from "react";
 class StackOverflow extends Component {
   state = {
     randomItem: ["one", "two", "three", "four"],
-    selected: null,
     clicked: false
   };
   handleClick = () => {
     this.setState(prev => ({
-      clicked: true,
-      selected:
-        prev.randomItem[Math.floor(Math.random() * prev.randomItem.length) + 0]
+      clicked: true
     }));
+  };
+  randomizeItem = () => {
+    return this.state.randomItem[
+      Math.floor(Math.random() * this.state.randomItem.length) + 0
+    ];
   };
   render() {
     return (
       <div>
-        <p>{this.state.selected}</p>
         <p onClick={this.handleClick}>
-          {this.state.clicked && this.state.selected} Hi
+          {this.state.clicked && this.randomizeItem()} Text1
+        </p>
+        <p onClick={this.handleClick}>
+          {this.state.clicked && this.randomizeItem()} Text2
         </p>
       </div>
     );
