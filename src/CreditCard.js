@@ -5,9 +5,9 @@ import Cleave from "cleave.js/react";
 class CreditCard extends React.Component {
   state = {
     cardNumber: "0000 0000 0000 0000",
-    cardHolderName: "",
-    cardExpirationDate: "",
-    cardCVV: ""
+    cardHolderName: "Jane Doe",
+    cardExpirationDate: "2019/01",
+    cardCVV: "000"
   };
   setNumber = e => {
     const cardNumber = e.target.value;
@@ -37,15 +37,18 @@ class CreditCard extends React.Component {
       <div className="container">
         <div className="credit-card">
           <div id="card-type">Credit Company</div>
-          <img alt="chip" style={{ width: "50px" }} src={chip} />
+          <div id="chip">chip</div>
           <div id="card-number">{cardNumber}</div>
-          <div id="card-expiration">Valid Thru {cardExpirationDate}</div>
+          {cardExpirationDate !== "" && (
+            <div id="card-expiration">
+              <div id="validthru">Valid Thru</div>
+              {cardExpirationDate}
+            </div>
+          )}
           <div id="card-holder-name">{cardHolderName}</div>
         </div>
         <form className="card-form">
-          <label className="input-label">
-            Credit Card Number*
-          </label>
+          <label className="input-label">Credit Card Number</label>
           <Cleave
             placeholder="Enter your credit card number"
             options={{ creditCard: true }}
@@ -54,7 +57,7 @@ class CreditCard extends React.Component {
             className="text-input"
             onChange={this.setNumber}
           />
-          <label className="input-label">Card Holder Name*</label>
+          <label className="input-label">Card Holder Name</label>
           <input
             type="text"
             placeholder="Enter card holder name"
@@ -67,7 +70,7 @@ class CreditCard extends React.Component {
               style={{ display: "flex", flexDirection: "column", width: "50%" }}
             >
               <label className="input-label">
-                Expiration Date* (ex: 2019/01)
+                Expiration Date (ex: 2019/01)
               </label>
               <Cleave
                 options={{
@@ -84,7 +87,7 @@ class CreditCard extends React.Component {
             <div
               style={{ display: "flex", flexDirection: "column", width: "50%" }}
             >
-              <label className="input-label">CVV Security Code*</label>
+              <label className="input-label">CVV Security Code</label>
               <Cleave
                 options={{
                   numeral: "true"
