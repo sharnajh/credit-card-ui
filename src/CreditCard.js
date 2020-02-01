@@ -1,14 +1,32 @@
 import React from "react";
 import chip from "./icons8-chip-card-40.png";
 import Cleave from "cleave.js/react";
+import anime from 'animejs/lib/anime.es.js';
 
 class CreditCard extends React.Component {
   state = {
     cardNumber: "0000 0000 0000 0000",
     cardHolderName: "Jane Doe",
     cardExpirationDate: "2019/01",
-    cardCVV: "888"
+    cardCVV: "888",
+    focused: ""
   };
+  flipCard = () => {
+    anime({
+      targets: ".credit-card-inner",
+      rotateY: "180deg",
+      duration: "100",
+      easing: 'linear'
+    })
+  }
+  unFlipCard = () => {
+    anime({
+      targets: ".credit-card-inner",
+      rotateY: "360deg",
+      duration: "100",
+      easing: 'linear'
+    })
+  }
   setNumber = e => {
     const cardNumber = e.target.value;
     this.setState({ cardNumber });
@@ -50,7 +68,8 @@ class CreditCard extends React.Component {
               <div id="card-holder-name">{cardHolderName}</div>
             </div>
             <div className="credit-card-back">
-              {cardCVV}
+              <div className="signature">{cardHolderName}</div>
+            {cardCVV}
             </div>
           </div>
         </div>
@@ -104,6 +123,8 @@ class CreditCard extends React.Component {
                 value={cardCVV}
                 className="text-input"
                 onChange={e => this.setCVV(e)}
+                onFocus={this.flipCard}
+                onBlur={this.unFlipCard}
               />
             </div>
           </div>

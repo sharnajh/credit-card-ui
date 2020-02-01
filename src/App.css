@@ -26,7 +26,7 @@ body {
 .credit-card {
   width: 420px;
   margin: 0;
-  margin-left: -20px;
+  margin-left: -35px;
   height: 250px;
   perspective: 1000px;
   background-color: transparent;
@@ -40,10 +40,6 @@ body {
   transform-style: preserve-3d;
 }
 
-.credit-card:hover .credit-card-inner {
-  transform: rotateY(180deg);
-}
-
 .credit-card-front, .credit-card-back {
   position: absolute;
   width: 100%;
@@ -51,13 +47,19 @@ body {
   backface-visibility: hidden;
   border-radius: 20px;
   background: linear-gradient(to top left, #ff9900 0%, #ff0866 100%);
-  padding: 10px;
+  padding: 20px;
+}
+
+.credit-card-front {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .credit-card-back {
   transform: rotateY(180deg);
   margin: 0;
-  margin-left: -20px;
+  margin-left: -35px;
 }
 
 #card-number {
@@ -70,7 +72,7 @@ body {
   flex-direction: column;
   justify-content: center;
   width: 435px;
-  margin-top: 30px;
+  margin-top: 50px;
 }
 
 input::placeholder {
@@ -101,6 +103,7 @@ input::placeholder {
   font-size:12px;
   margin-top:10px;
   margin-left: 5px;
+  margin-bottom: 0px;
   color: white;
 }
 
