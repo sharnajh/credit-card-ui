@@ -97,14 +97,14 @@ class CreditCard extends React.Component {
                 {cardType === "JCB" && <FaCcJcb />}
                 {cardType === "MasterCard" && <FaCcMastercard />}
               </div>
-            
+
               <div id="card-number">{cardNumber}</div>
-              {cardExpirationDate !== "" && (
-                <div id="card-expiration">
-                  <div id="validthru">Valid Thru</div>
-                  {cardExpirationDate}
-                </div>
-              )}
+
+              <div id="card-expiration">
+                {cardExpirationDate !== "" && <div id="validthru">Valid Thru</div>}
+                {cardExpirationDate}
+              </div>
+
               <div id="card-holder-name">{cardHolderName}</div>
             </div>
             <div className="credit-card-back">
@@ -113,6 +113,7 @@ class CreditCard extends React.Component {
                 <div className="signature">{cardHolderName}</div>
                 CVV {cardCVV}
               </div>
+              <p className="credits">Built with Cleave.js, Anime.js, and React Icons.</p>
             </div>
           </div>
         </div>
