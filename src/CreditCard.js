@@ -7,7 +7,7 @@ class CreditCard extends React.Component {
     cardNumber: "0000 0000 0000 0000",
     cardHolderName: "Jane Doe",
     cardExpirationDate: "2019/01",
-    cardCVV: "000"
+    cardCVV: "888"
   };
   setNumber = e => {
     const cardNumber = e.target.value;
@@ -36,16 +36,23 @@ class CreditCard extends React.Component {
     return (
       <div className="container">
         <div className="credit-card">
-          <div id="card-type">Credit Company</div>
-          <div id="chip">chip</div>
-          <div id="card-number">{cardNumber}</div>
-          {cardExpirationDate !== "" && (
-            <div id="card-expiration">
-              <div id="validthru">Valid Thru</div>
-              {cardExpirationDate}
+          <div className="credit-card-inner">
+            <div className="credit-card-front">
+              <div id="card-type">Credit Company</div>
+              <div id="chip">chip</div>
+              <div id="card-number">{cardNumber}</div>
+              {cardExpirationDate !== "" && (
+                <div id="card-expiration">
+                  <div id="validthru">Valid Thru</div>
+                  {cardExpirationDate}
+                </div>
+              )}
+              <div id="card-holder-name">{cardHolderName}</div>
             </div>
-          )}
-          <div id="card-holder-name">{cardHolderName}</div>
+            <div className="credit-card-back">
+              {cardCVV}
+            </div>
+          </div>
         </div>
         <form className="card-form">
           <label className="input-label">Credit Card Number</label>
