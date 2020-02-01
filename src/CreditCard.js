@@ -1,35 +1,66 @@
 import React from "react";
-import chip from "./icons8-chip-card-40.png";
 import Cleave from "cleave.js/react";
-import anime from 'animejs/lib/anime.es.js';
+import anime from "animejs/lib/anime.es.js";
+import {
+  FaCcAmex,
+  FaCcDinersClub,
+  FaCcDiscover,
+  FaCcJcb,
+  FaCcMastercard,
+  FaCcVisa,
+  FaCreditCard
+} from "react-icons/fa";
 
 class CreditCard extends React.Component {
   state = {
     cardNumber: "0000 0000 0000 0000",
-    cardHolderName: "Jane Doe",
-    cardExpirationDate: "2019/01",
-    cardCVV: "888",
-    focused: ""
+    cardHolderName: "",
+    cardExpirationDate: "",
+    cardCVV: "",
+    cardType: ""
   };
   flipCard = () => {
     anime({
       targets: ".credit-card-inner",
       rotateY: "180deg",
       duration: "100",
-      easing: 'linear'
-    })
-  }
+      easing: "linear"
+    });
+  };
   unFlipCard = () => {
     anime({
       targets: ".credit-card-inner",
       rotateY: "360deg",
       duration: "100",
-      easing: 'linear'
-    })
-  }
+      easing: "linear"
+    });
+  };
+  setCardType = type => {
+    this.setState({ cardType: type });
+  };
+  checkSubstring = (length, match) => {
+    return this.state.cardNumber.substring(0, length) === match;
+  };
   setNumber = e => {
     const cardNumber = e.target.value;
-    this.setState({ cardNumber });
+    this.setState({ cardNumber }, () => {
+      const { cardNumber } = this.state;
+      if (cardNumber[0] === "4") {
+        this.setCardType("Visa");
+      } else if (this.checkSubstring(4, "6011")) {
+        this.setCardType("Discover");
+      } else if (this.checkSubstring(2, "51")) {
+        this.setCardType("MasterCard");
+      } else if (this.checkSubstring(2, "34")) {
+        this.setCardType("AmericanExpress");
+      } else if (this.checkSubstring(3, "300")) {
+        this.setCardType("DinersClub");
+      } else if (this.checkSubstring(2, "35")) {
+        this.setCardType("JCB");
+      } else {
+        this.setCardType("");
+      }
+    });
   };
   setName = e => {
     const cardHolderName = e.target.value.toUpperCase();
@@ -48,7 +79,8 @@ class CreditCard extends React.Component {
       cardNumber,
       cardHolderName,
       cardExpirationDate,
-      cardCVV
+      cardCVV,
+      cardType
     } = this.state;
     console.log(this.state);
     return (
@@ -56,8 +88,16 @@ class CreditCard extends React.Component {
         <div className="credit-card">
           <div className="credit-card-inner">
             <div className="credit-card-front">
-              <div id="card-type">Credit Company</div>
-              <div id="chip">chip</div>
+              <div id="card-type">
+                {cardType === "" && <FaCreditCard />}
+                {cardType === "Discover" && <FaCcDiscover />}
+                {cardType === "AmericanExpress" && <FaCcAmex />}
+                {cardType === "Visa" && <FaCcVisa />}
+                {cardType === "DinersClub" && <FaCcDinersClub />}
+                {cardType === "JCB" && <FaCcJcb />}
+                {cardType === "MasterCard" && <FaCcMastercard />}
+              </div>
+            
               <div id="card-number">{cardNumber}</div>
               {cardExpirationDate !== "" && (
                 <div id="card-expiration">
@@ -68,8 +108,11 @@ class CreditCard extends React.Component {
               <div id="card-holder-name">{cardHolderName}</div>
             </div>
             <div className="credit-card-back">
-              <div className="signature">{cardHolderName}</div>
-            {cardCVV}
+              <div className="card-stripe" />
+              <div className="card-sig-container">
+                <div className="signature">{cardHolderName}</div>
+                CVV {cardCVV}
+              </div>
             </div>
           </div>
         </div>
