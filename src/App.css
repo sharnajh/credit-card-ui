@@ -180,3 +180,25 @@ input::placeholder {
   text-align: center;
   text-transform: capitalize;
 }
+
+@media only screen and (max-width: 600px) {
+  .container {
+    justify-content: flex-start;
+    padding-top: 20px;
+  }
+  .credit-card, .credit-card-front, .credit-card-back {
+    width:90%;
+    height: 200px;
+    margin: 0;
+  }
+  #card-number {
+    font-size: 23px;
+  }
+  .card-sig-container {
+    height: 25px;
+    font-size: 15px;
+  }
+  .card-form {
+    width: 80%;
+  }
+}

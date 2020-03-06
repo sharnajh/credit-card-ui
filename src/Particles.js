@@ -49,7 +49,10 @@ class Particles extends Component {
     }
 
     const draw = () => {
-      ctx.fillStyle = "#000";
+      let grd = ctx.createLinearGradient(300.000, 6.000, 0.000, 294.000);
+      grd.addColorStop(0.000, 'rgba(255, 15, 115, 1.000)');
+      grd.addColorStop(0.996, 'rgba(15, 207, 255, 1.000)');
+      ctx.fillStyle = grd;
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
       // Lets draw particles from the array now

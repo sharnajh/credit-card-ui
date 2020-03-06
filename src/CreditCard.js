@@ -16,9 +16,10 @@ class CreditCard extends React.Component {
     cardNumber: "0000 0000 0000 0000",
     cardHolderName: "",
     cardExpirationDate: "",
-    cardCVV: "",
+    cardCVC: "",
     cardType: ""
   };
+  // Flip card animations
   flipCard = () => {
     anime({
       targets: ".credit-card-inner",
@@ -35,12 +36,14 @@ class CreditCard extends React.Component {
       easing: "linear"
     });
   };
+  // Helper functions
   setCardType = type => {
     this.setState({ cardType: type });
   };
   checkSubstring = (length, match) => {
     return this.state.cardNumber.substring(0, length) === match;
   };
+  // Controlled inputs
   setNumber = e => {
     const cardNumber = e.target.value;
     this.setState({ cardNumber }, () => {
@@ -70,16 +73,16 @@ class CreditCard extends React.Component {
     const cardExpirationDate = e.target.value;
     this.setState({ cardExpirationDate });
   };
-  setCVV = e => {
-    const cardCVV = e.target.value;
-    this.setState({ cardCVV });
+  setCVC = e => {
+    const cardCVC = e.target.value;
+    this.setState({ cardCVC });
   };
   render() {
     const {
       cardNumber,
       cardHolderName,
       cardExpirationDate,
-      cardCVV,
+      cardCVC,
       cardType
     } = this.state;
     console.log(this.state);
@@ -111,7 +114,7 @@ class CreditCard extends React.Component {
               <div className="card-stripe" />
               <div className="card-sig-container">
                 <div className="signature">{cardHolderName}</div>
-                CVV {cardCVV}
+                CVC {cardCVC}
               </div>
               <p className="credits">Built with Cleave.js, Anime.js, and React Icons.</p>
             </div>
@@ -134,13 +137,14 @@ class CreditCard extends React.Component {
             value={cardHolderName}
             onChange={e => this.setName(e)}
             className="text-input"
+            maxLength="30"
           />
           <div className="date-and-csv" style={{ display: "flex" }}>
             <div
               style={{ display: "flex", flexDirection: "column", width: "50%" }}
             >
               <label className="input-label">
-                Expiration Date (ex: 2019/01)
+                Expiration Date
               </label>
               <Cleave
                 options={{
@@ -157,16 +161,16 @@ class CreditCard extends React.Component {
             <div
               style={{ display: "flex", flexDirection: "column", width: "50%" }}
             >
-              <label className="input-label">CVV Security Code</label>
+              <label className="input-label">CVC Security Code</label>
               <Cleave
                 options={{
                   numeral: "true"
                 }}
-                placeholder="Enter CVV"
+                placeholder="Enter CVC"
                 maxLength="3"
-                value={cardCVV}
+                value={cardCVC}
                 className="text-input"
-                onChange={e => this.setCVV(e)}
+                onChange={e => this.setCVC(e)}
                 onFocus={this.flipCard}
                 onBlur={this.unFlipCard}
               />
